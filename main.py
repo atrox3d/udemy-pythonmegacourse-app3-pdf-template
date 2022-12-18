@@ -33,6 +33,8 @@ for index, row in df.iterrows():
 
     x, y, w, h = gettcoords(pdf)
     pdf.line(x, y, x + w, y)
+    for page in range(row.Pages - 1):
+        pdf.add_page()
 
 pdf.output("output.pdf")
 webbrowser.open("output.pdf")
