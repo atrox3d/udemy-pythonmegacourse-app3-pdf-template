@@ -33,8 +33,26 @@ for index, row in df.iterrows():
 
     x, y, w, h = gettcoords(pdf)
     pdf.line(x, y, x + w, y)
+
+    print("footer")
+    # Go to 1.5 cm from bottom
+    printcoords(pdf)
+    pdf.set_y(-(pdf.b_margin + 10))
+    printcoords(pdf)
+    # Select Arial italic 8
+    pdf.set_font('Arial', 'I', 8)
+    # Print centered page number
+    pdf.cell(0, 10, f'Page {pdf.page_no()}, {row.Topic}', 0, 0, 'C')
+
     for page in range(row.Pages - 1):
         pdf.add_page()
+        print("footer")
+        # Go to 1.5 cm from bottom
+        pdf.set_y(-(pdf.b_margin + 10))
+        # Select Arial italic 8
+        pdf.set_font('Arial', 'I', 8)
+        # Print centered page number
+        pdf.cell(0, 10, f'Page {pdf.page_no()}, {row.Topic}', 0, 0, 'C')
 
 pdf.output("output.pdf")
 webbrowser.open("output.pdf")
