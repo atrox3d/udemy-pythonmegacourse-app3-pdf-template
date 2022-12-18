@@ -45,12 +45,18 @@ for index, row in df.iterrows():
     printcoords(pdf)
 
     x, y, w, h = gettcoords(pdf)
-    pdf.line(x, y, x + w, y)
+    while y < (pdf.h - pdf.b_margin - 10):
+        pdf.line(x, y, x + w, y)
+        y += 10
 
     print_footer(pdf, row.Topic)
 
     for page in range(row.Pages - 1):
         pdf.add_page()
+        x, y, w, h = gettcoords(pdf)
+        while y < (pdf.h - pdf.b_margin - 10):
+            pdf.line(x, y, x + w, y)
+            y += 10
         print_footer(pdf, row.Topic)
 
 pdf.output("output.pdf")
